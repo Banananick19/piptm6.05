@@ -13,7 +13,11 @@ function dataURLtoFile(dataurl, filename) {
 download_file.onclick = async (e) => {
     e.preventDefault();
     let filename = input_file_name.value;
-    window.open(window.location.origin + "/file?filename=" + filename, '_blank').focus();
+    if (filename.length != 32) {
+        alert("Вставьте код в поле ввода")
+    } else {
+        window.open(window.location.origin + "/file?filename=" + filename, '_blank').focus();
+    }
 }
 
 form.onsubmit = async (e) => {
