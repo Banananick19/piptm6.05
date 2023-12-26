@@ -1,11 +1,51 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="{{url_for('static', filename='css/app.css')}}" rel="stylesheet">
 <head>
 <body>
+        <div class="m-2">
 
-  <p>Name: {{ name }}</p>
+  <div class="center">
+      <div>
+          <form action="/getFile" >
+             <input
+            type="text"
+            id="input_file_name"
+          />
+              <button id="download_file">
+                  Открыть
+              </button>
+          </form>
+      </div>
+      <form id="form">
+          <input
+            type="file"
+            id="input_file"
+            name="file"
+            accept="image/*"
+            onchange={handleChange()}
+            hidden
+          />
+          <label class="btn-upload" for="input_file" role="button">
+            Выбрать изображение
+          </label>
+          <button type="submit" class="btn-upload" for="input-file" role="button">
+            Сохранить изображение
+          </button>
+            <span id="result-card"></span>
+          <div class="preview-box" style="height:500px"></div>
+      </form>
+    </div>
+                    </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+<script type='text/javascript' src="{{url_for('static', filename='js/init.js')}}"></script>
 <body>
 <html>

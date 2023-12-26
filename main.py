@@ -1,15 +1,34 @@
-from flask import Flask, request, g, render_template, make_response
-
+import flask
+import os
+from flask import Flask, request, g, render_template, make_response, redirect
+import uuid
+import json
 app = Flask(__name__)
 
-@app.before_request
-def before_request():
-    print("before_request() called")
+def find_file(in_path, name):
+    for root, directories, filenames in os.walk(in_path):
+        if not filenames:
+            continue
 
-@app.after_request
-def after_request(response):
-    print("after_request() called")
-    return response
+        for filename in filenames:
+            if filename.startswith(name):
+                return os.path.join(root, filename)
+
+    return None
+
+@app.post("/upload")
+def upload():
+    file = request.files['file']
+    filename = uuid.uuid4().hex + '.' + file.filename.split(".")[-1]
+    file.save("files/" + filename)
+    response = {'filename': filename.split(".")[0]}
+    return json.dumps(response)
+
+@app.get("/file")
+def getFile():
+    filename = find_file("./files", request.args.get("filename"))
+    return flask.send_file(filename, download_name=filename, mimetype="image/png")
+
 
 
 @app.route("/")
